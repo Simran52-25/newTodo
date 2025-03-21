@@ -1,29 +1,56 @@
 import { useState, useEffect, useActionState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 // import "./Home.css";
 const Home = () => {
   //   const list = [{ id: 1, description: "todo1" }];
   const [todo, setTodo] = useState([]);
-  // const [toadd, setToAdd] = useState("");
   const [edit, setEdit] = useState(false);
-  const [editIndex, setEditIndex] = useState(null);
-  //   const [formOpen, setFormOpen] = useState(false);
-  const [task, setTask] = useState({
-    description: "",
-    createdon: "",
-    enddate: "",
-    assignedby: "",
+  const [editIndex,setEditIndex]=useState(null)
+  const formik = useFormik({
+    initialValues: {
+      createdon: "",
+      enddate: "",
+      assignedby: "",
+      description: "",
+    },
+    onSubmit:(values)=>{
+        console.log("onSubmit")
+        if(formik.isValid){
+            handleAdd()
+        }
+        else{
+             console.log("error")
+        }
+    },
+    validationSchema: Yup.object({
+      assignedby: Yup.string().required("Compulsory to enter this field"),
+      description: Yup.string()
+        .required("mandatory field")
+        .min(10, "enter more than 10 characters"),
+    }),
   });
-  const [editTask, setEditTask] = useState({
-    description: "",
-    createdon: "",
-    enddate: "",
-    assignedby: "",
+  const formikEdit = useFormik({
+    initialValues: {
+      createdon: "",
+      enddate: "",
+      assignedby: "",
+      description: "",
+    },
+    // validationSchema: Yup.object({
+    //   assignedby: Yup.string().required("Compulsory to enter this field"),
+    //   description: Yup.string()
+    //     .required("madatory field")
+    //     .min(10, "enter more than 10 characters"),
+    // }),
   });
 
   const handleAdd = () => {
-    setTodo((prev) => [...prev, task]);
-    setTask({ description: "", createdon: "", enddate: "", assignedby: "" });
+    console.log("handleadd called")
+    setTodo((prev) => [...prev, formik.values]);
+    // setTask({ description: "", createdon: "", enddate: "", assignedby: "" });
+    formik.resetForm()
   };
 
   const handleDelete = (ind) => {
@@ -36,91 +63,105 @@ const Home = () => {
     setEditIndex(index);
     // console.log(editIndex)
     // console.log("todo[editIndex]",todo[editIndex])
-    setEditTask(todo[index]);
+    // setEditTask(todo[index]);
+    //   formikEdit.setValues({enddate:"",assignedby:"",description:"",createdon:""})
+    formikEdit.setValues(todo[index])
   };
   const editArray = () => {
     const newArr = todo.map((item, index) =>
-      index === editIndex ? { ...editTask } : item
+      index === editIndex ? {... formikEdit.values } : item
     );
     setTodo(newArr);
-    setEditTask({description:'',createdon:"",assignedby:"",enddate:""})
     setEdit(false);
-   
   };
 
-  const handleChange = (e) => {
-    const value = e.target.value;
-    const key = e.target.name;
-    // console.log(key,value)
-    setTask((prev) => {
-      return { ...prev, [key]: value };
-    });
-  };
-  const handleEditChange=(e)=>{
+  //   const handleChange = (e) => {
+  //     const value = e.target.value;
+  //     const key = e.target.name;
+  //     // console.log(key,value)
+  //     setTask((prev) => {
+  //       return { ...prev, [key]: value };
+  //     });
+  //   };
+  const handleEditChange = (e) => {
     const value = e.target.value;
     const key = e.target.name;
     // console.log(key,value)
     setEditTask((prev) => {
       return { ...prev, [key]: value };
     });
-  }
-  console.log("task", task);
+  };
   console.log("todo", todo);
+
   return (
     <div className="main flex flex-col">
       <div className="add-item bg-[#B3D8A8] shadow-md">
         <div className="text-center text-xl font-semibold text-[#205781]">
           Add To Do
         </div>
-        <div className="flex flex-col gap-1.5 items-center p-4">
+        <div className=" p-4">
           <form
-            className="  grid grid-cols-2 gap-x-2 gap-y-3  "
-            onChange={(e) => handleChange(e)}
+            className="  flex flex-col gap-1.5 items-center  "
+            onSubmit={formik.handleSubmit}
+            // onChange={(e) => handleChange(e)}
           >
-            <div className="flex flex-col gap-0.5 ">
-              <label>description</label>
-              <input
-                className="p-1 border-2 rounded-md border-blue-200 "
-                type="text"
-                name="description"
-                value={task?.description}
-              ></input>
-            </div>
-            <div className="flex flex-col gap-0.5 ">
-              <label>deadline</label>
-              <input
-                className="p-1 border-2 rounded-md border-blue-200"
-                type="date"
-                name="enddate"
-                value={task?.enddate}
-              ></input>
-            </div>
+            <div className="grid grid-cols-2 gap-x-2 gap-y-3">
+              <div className="flex flex-col gap-0.5 ">
+                <label>description</label>
+                <input
+                  className="p-1 border-2 rounded-md border-blue-200 "
+                  type="text"
+                  name="description"
+                  value={formik.values.description}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                ></input>
+                 {formik.touched.description && formik.errors.description && <p className="text-red-600">{formik.errors.description}</p>}
+              </div>
+              <div className="flex flex-col gap-0.5 ">
+                <label>deadline</label>
+                <input
+                  className="p-1 border-2 rounded-md border-blue-200"
+                  type="date"
+                  name="enddate"
+                  value={formik.values.enddate}
+                  onChange={formik.handleChange}
+                ></input>
+                {formik.errors.enddate&& <p className="text-red-600">{formik.errors.enddate}</p>}
+                
+              </div>
 
-            <div className="flex flex-col gap-0.5 ">
-              <label>created on</label>
-              <input
-                className=" p-1 border-2 rounded-md border-blue-200"
-                name="createdon"
-                type="date"
-                value={task?.createdon}
-              ></input>
+              <div className="flex flex-col gap-0.5 ">
+                <label>created on</label>
+                <input
+                  className=" p-1 border-2 rounded-md border-blue-200"
+                  name="createdon"
+                  type="date"
+                  value={formik.values.createdon}
+                  onChange={formik.handleChange}
+                ></input>
+                 {formik.errors.createdon&& <p className="text-red-600">{formik.errors.createdon}</p>}
+              </div>
+              <div className="flex flex-col gap-0.5 ">
+                <label>Assigned by</label>
+                <input
+                  className="p-1 border-2 rounded-md border-blue-200"
+                  name="assignedby"
+                  value={formik.values.assignedby}
+                  type="text"
+                  onChange={formik.handleChange}
+                ></input>
+                 {formik.errors.assignedby&& <p className="text-red-600">{formik.errors.assignedby}</p>}
+              </div>
             </div>
-            <div className="flex flex-col gap-0.5 ">
-              <label>Assigned by</label>
-              <input
-                className="p-1 border-2 rounded-md border-blue-200"
-                name="assignedby"
-                value={task?.assignedby}
-                type="text"
-              ></input>
-            </div>
+            <button
+            //   onClick={handleAdd}
+              type="submit"
+              className="text-[18px] font-medium border-2 rounded-md bg-[#59809e] p-2 w-max"
+            >
+              Add item
+            </button>
           </form>
-          <button
-            onClick={handleAdd}
-            className="text-[18px] font-medium border-2 rounded-md bg-[#59809e] p-2 w-max"
-          >
-            Add item
-          </button>
         </div>
       </div>
       <div className="todo-list ">
@@ -163,7 +204,8 @@ const Home = () => {
         <div className="  edit-input fixed  inset-0 flex items-center justify-center">
           <form
             className="border-white border-2 rounded-md p-2 w-1/4 bg-[#B3D8A8] flex flex-col gap-2 "
-            onChange={(e) => handleEditChange(e)}
+            // onChange={(e) => handleEditChange(e)}
+            onSubmit={formikEdit.handleSubmit}
           >
             <div className="flex flex-col gap-0.5 ">
               <label>description</label>
@@ -171,7 +213,8 @@ const Home = () => {
                 className="border-1 rounded-md"
                 type="text"
                 name="description"
-                value={editTask?.description}
+                value={formikEdit.values.description}
+                onChange={formikEdit.handleChange}
               ></input>
             </div>
             <div className="flex flex-col gap-0.5 ">
@@ -180,7 +223,8 @@ const Home = () => {
                 className="border-1 rounded-md"
                 type="date"
                 name="enddate"
-                value={editTask?.enddate}
+                value={formikEdit.values.enddate}
+                onChange={formikEdit.handleChange}
               ></input>
             </div>
 
@@ -190,7 +234,8 @@ const Home = () => {
                 className="border-1 rounded-md"
                 name="createdon"
                 type="date"
-                value={editTask?.createdon}
+                value={formikEdit.values.createdon}
+                onChange={formikEdit.handleChange}
               ></input>
             </div>
             <div className="flex flex-col gap-0.5 ">
@@ -198,13 +243,15 @@ const Home = () => {
               <input
                 className="border-1 rounded-md"
                 name="assignedby"
-                value={editTask?.assignedby}
+                value={formikEdit.values.assignedby}
+                onChange={formikEdit.handleChange}
                 type="text"
               ></input>
             </div>
             <button
               onClick={editArray}
               className=" font-semibold text-[16px] cursor-pointerborder-2 rounded-md bg-[#A0C878] p-1 w-max mx-auto"
+              type="submit"
             >
               Done Edit
             </button>
