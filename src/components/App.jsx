@@ -1,17 +1,14 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import './App.css'
-import Form1 from './Form1'
-import Home from './Home'
-
+import "./App.css";
+import Home from "./Home";
 
 function App() {
- 
   return (
-//  <Form1/>
-<Home/>
-  )
+    <>
+     {/* <div> App component</div> */}
+     <Home />
+     </>
+    
+  );
 }
 
-export default App
+export default App;
