@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TodoContext } from "./TodoContext/TodoContext";
+import { TodoContext } from "../TodoContext/TodoContext";
 
 const ItemList = () => {
   const { todo,edit,setEdit,setEditIndex,formikEdit,setTodo } = useContext(TodoContext);

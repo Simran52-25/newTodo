@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useContext } from "react";
-import { TodoContext } from "./TodoContext/TodoContext";
+import { TodoContext } from "../TodoContext/TodoContext";
 const AddItemForm = () => {
   const { formik } = useContext(TodoContext);
  
