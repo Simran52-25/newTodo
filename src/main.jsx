@@ -7,9 +7,9 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Users from "./components/Users.jsx";
 import Store from "./store/Store.jsx";
 import { Provider } from "react-redux";
-import Header from "./components/Header.jsx";
 import Home from "./components/Home.jsx";
 import RouteLayout from "./RouteLayout.jsx";
+import Posts from "./components/Posts.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={Store}>
@@ -19,8 +19,11 @@ createRoot(document.getElementById("root")).render(
           <Route element={<RouteLayout />}>
             <Route index element={<Home />}></Route>
             <Route path="/users" element={<Users />}></Route>
+            <Route path="/posts" element={<Posts />}></Route>
+                  
           </Route>
         </Routes>
+        
       </TodoContextProvider>
     </BrowserRouter>
   </Provider>

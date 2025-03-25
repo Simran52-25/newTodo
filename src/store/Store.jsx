@@ -1,11 +1,11 @@
-import { configureStore, createAsyncThunk } from "@reduxjs/toolkit";
-import UserReducer from "./UserSlice"
+import { configureStore } from "@reduxjs/toolkit";
+import UserReducer from "./UserSlice";
+import PostReducer from "./PostSlice";
 
-const Store=configureStore({
-    reducer:{
-        user:UserReducer
-    },
-
-
-})
-export default Store
+const Store = configureStore({
+  reducer: {
+    user: UserReducer,
+    posts: PostReducer,
+  },
+});
+export default Store;

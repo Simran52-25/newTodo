@@ -34,9 +34,8 @@ const Users = () => {
                   key={user.id}
                   className="bg-[#c0c0c0] p-2  m-3 shadow-md border-2 rounded-md border-[#c0c0c0]"
                 >
-                   <div>User Id:{user.id}</div>
+                  <div>User Id:{user.id}</div>
                   <div>User name:{user.name}</div>
-                 
                 </li>
               );
             })}

@@ -1,4 +1,3 @@
-import { isPending } from "@reduxjs/toolkit";
 import { NavLink } from "react-router";
 
 const Header = () => {
@@ -24,6 +23,16 @@ const Header = () => {
           }
         >
           Users
+        </NavLink>
+        <NavLink
+          to="/posts"
+          className={({ isActive, isPending }) =>
+            `${
+              isActive ? "text-green-500" : ""
+            } cursor-pointer hover:text-gray-300 hover:scale-110 `
+          }
+        >
+          Posts
         </NavLink>
       </div>
     </div>
