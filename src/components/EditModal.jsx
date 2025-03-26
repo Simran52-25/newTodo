@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { TodoContext } from "./TodoContext/TodoContext"
+import { TodoContext } from "../TodoContext/TodoContext"
 import { useRef ,useEffect} from "react"
 
 const EditModal=()=>{
