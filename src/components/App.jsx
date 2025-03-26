@@ -4,10 +4,9 @@ import Home from "./Home";
 function App() {
   return (
     <>
-     {/* <div> App component</div> */}
-     <Home />
-     </>
-    
+      {/* <div> App component</div> */}
+      <Home />
+    </>
   );
 }
 

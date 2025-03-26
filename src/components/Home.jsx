@@ -2,7 +2,7 @@ import {  useContext, useEffect, useRef } from "react";
 import EditModal from "./EditModal";
 import ItemList from "./ItemList";
 import AddItemForm from "./AddItemForm";
-import { TodoContext } from "./TodoContext/TodoContext";
+import { TodoContext } from "../TodoContext/TodoContext";
 
 const Home = () => {
   return (
