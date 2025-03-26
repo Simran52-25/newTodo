@@ -34,6 +34,16 @@ const Header = () => {
         >
           Posts
         </NavLink>
+        <NavLink
+          to="/profile"
+          className={({ isActive, isPending }) =>
+            `${
+              isActive ? "text-green-500" : ""
+            } cursor-pointer hover:text-gray-300 hover:scale-110 `
+          }
+        >
+          Profile
+        </NavLink>
       </div>
     </div>
   );

@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { increment } from "./store/UserSlice";
 import { fetchUser } from "../store/UserSlice";
+import { Navigate } from "react-router";
 
 const Users = () => {
+  const {isLogged}=useSelector((store)=>store.login)
+  if(!isLogged) return <Navigate to="/login"/>
   const url = "https://jsonplaceholder.typicode.com/users";
   const dispatch = useDispatch();
   const { users, isLoading } = useSelector((state) => state.user);
@@ -16,12 +19,6 @@ const Users = () => {
 
   return (
     <>
-      {/* <div>User component</div> */}
-      {/* <button className="bg-blue-400 text-white" onClick={()=>dispatch(increment())}>increment</button>
-       */}
-      {/* <div>value{count}</div>
-       */}
-
       {isLoading ? (
         <div className="text-blue-500 p-4">Loading the data</div>
       ) : (

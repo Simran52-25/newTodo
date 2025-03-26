@@ -30,10 +30,12 @@ const PostSlice = createSlice({
     resetSpinner: (state, action) => {
       state.spinner = !state.spinner;
     },
+    
   },
   extraReducers: (builder) => {
     builder.addCase(getPost.pending, (state, action) => {
       console.log("getting post pending");
+      
     });
     builder.addCase(getPost.fulfilled, (state, action) => {
       console.log("getting post fulfileed");
