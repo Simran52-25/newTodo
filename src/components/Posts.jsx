@@ -100,7 +100,10 @@ const Posts = () => {
                 className="bg-[#c0c0c0] p-2  m-3 shadow-md border-2 rounded-md border-[#c0c0c0]"
               >
                 <div>
-                  <div><span className="text-md font-medium">{element.id}</span>.{" "+element.title}</div>
+                  <div>
+                    <span className="text-md font-medium">{element?.id}</span>.
+                    {" " + element?.title}
+                  </div>
                 </div>
               </div>
             );

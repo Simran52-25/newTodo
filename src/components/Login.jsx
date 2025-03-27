@@ -1,9 +1,34 @@
 import { useFormik } from "formik";
 import { checkLogin } from "../store/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router";
 const Login = () => {
+  // const [log, setLog] = useState(false);
+  // useEffect(() => {
+  //   const accessToken=localStorage.getItem("accessToken")
+  //   if (accessToken) {
+  //     const fetchUserProfile = async () => {
+  //       const response = await fetch(
+  //         "https://api-serenify.vercel.app/api/users/current-user",
+  //         {
+  //           method: "GET",
+  //           headers: {
+  //             authorization: `Bearer ${accessToken}`,
+  //           },
+  //         }
+  //       );
+  //       const data = response.json();
+  //       return data;
+  //     };
+  //     fetchUserProfile().then((res) => {
+  //       if (res.success) {
+  //         setLog(true);
+  //       }
+  //     });
+  //   }
+  // }, []);
 
-  
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -15,6 +40,7 @@ const Login = () => {
       dispatch(checkLogin({ email, password }));
     },
   });
+  // if (log) return <Navigate to="/" />;
   return (
     <div className="h-svh flex justify-center items-center">
       <form

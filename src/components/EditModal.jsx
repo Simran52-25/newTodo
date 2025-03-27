@@ -12,12 +12,7 @@ const EditModal=()=>{
       }, [edit]);
       const handleOutside = (event) => {
         // console.log("handleoutside called",event)
-        console.log(
-          "event.target-",
-          event.target,
-          "modalRef.current-",
-          modalRef.current
-        );
+        
         if (modalRef.current && !modalRef.current.contains(event.target)) {
           console.log("clicked outside the modal");
           setEdit(false);

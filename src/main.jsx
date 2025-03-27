@@ -15,50 +15,62 @@ import Wrapper from "./components/Wrapper.jsx";
 import AuthenticatedRoutes from "./infrastructure/AuthenticatedRoutes.jsx";
 import UnauthenticatedRoutes from "./infrastructure/UnauthenticatedRoutes.jsx";
 import UserProfile from "./components/UserProfile.jsx";
+import MainAuthenticated from "./components/MainAuthenticated.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={Store}>
     <BrowserRouter>
       <TodoContextProvider>
-        <Routes>
-          <Route element={<RouteLayout />}>
-            <Route
-              index
-              element={
-                <AuthenticatedRoutes>
-                  {" "}
-                  <Home />{" "}
-                </AuthenticatedRoutes>
-              }
-            ></Route>
-            <Route
-              path="/users"
-              element={
-                <AuthenticatedRoutes>
-                  {" "}
-                  <Users />{" "}
-                </AuthenticatedRoutes>
-              }
-            ></Route>
-            <Route
-              path="/posts"
-              element={
-                <AuthenticatedRoutes>
-                  <Posts />
-                </AuthenticatedRoutes>
-              }
-            ></Route>
-            <Route
-              path="/profile"
-              element={
-                <AuthenticatedRoutes>
-                  <UserProfile />
-                </AuthenticatedRoutes>
-              }
-            ></Route>
-            <Route path="/login" element={<UnauthenticatedRoutes><Login /> </UnauthenticatedRoutes>}></Route>
-          </Route>
-        </Routes>
+        <MainAuthenticated>
+          <Routes>
+            <Route element={<RouteLayout />}>
+              <Route
+                index
+                element={
+                  <AuthenticatedRoutes>
+                    {" "}
+                    <Home />{" "}
+                  </AuthenticatedRoutes>
+                }
+              ></Route>
+              <Route
+                path="/users"
+                element={
+                  <AuthenticatedRoutes>
+                    {" "}
+                    <Users />{" "}
+                  </AuthenticatedRoutes>
+                }
+              ></Route>
+              <Route
+                path="/posts"
+                element={
+                  <AuthenticatedRoutes>
+                    <Posts />
+                  </AuthenticatedRoutes>
+                }
+              ></Route>
+              <Route
+                path="/profile"
+                element={
+                  <AuthenticatedRoutes>
+                    <UserProfile />
+                  </AuthenticatedRoutes>
+                }
+              ></Route>
+              {}
+
+              <Route
+                path="/login"
+                element={
+                  <UnauthenticatedRoutes>
+                    <Login />{" "}
+                  </UnauthenticatedRoutes>
+                }
+              ></Route>
+            </Route>
+          </Routes>
+        </MainAuthenticated>
       </TodoContextProvider>
     </BrowserRouter>
   </Provider>
