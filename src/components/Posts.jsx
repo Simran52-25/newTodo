@@ -13,7 +13,7 @@ const override = {
 };
 
 const Posts = () => {
-  const { posts, spinner } = useSelector((store) => store.posts);
+  const { posts, spinner, isLoading } = useSelector((store) => store.posts);
   //   console.log("possts", posts);
   //   const spinner = true
 
@@ -91,27 +91,31 @@ const Posts = () => {
           </div>
         </div>
       </div>
-      <div className="post-list">
-        {posts.length ? (
-          posts.map((element, index) => {
-            return (
-              <div
-                key={index}
-                className="bg-[#c0c0c0] p-2  m-3 shadow-md border-2 rounded-md border-[#c0c0c0]"
-              >
-                <div>
+      {isLoading ? (
+        <div>Loading</div>
+      ) : (
+        <div className="post-list">
+          {posts.length ? (
+            posts.map((element, index) => {
+              return (
+                <div
+                  key={index}
+                  className="bg-[#c0c0c0] p-2  m-3 shadow-md border-2 rounded-md border-[#c0c0c0]"
+                >
                   <div>
-                    <span className="text-md font-medium">{element?.id}</span>.
-                    {" " + element?.title}
+                    <div>
+                      <span className="text-md font-medium">{element.id}</span>.
+                      {" " + element.title}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <div>no posts</div>
-        )}
-      </div>
+              );
+            })
+          ) : (
+            <div>no posts</div>
+          )}
+        </div>
+      )}
     </>
   );
 };

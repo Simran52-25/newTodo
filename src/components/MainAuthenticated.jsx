@@ -7,7 +7,12 @@ const MainAuthenticated = ({ children }) => {
   useEffect(() => {
     dispatch(tryAccessLogin());
   }, []);
-  if (isLoading) return <div className="h-svh flex items-center justify-center text-lg font-semibold">Loading...</div>;
-  return <div>{children}</div>; 
+  if (isLoading)
+    return (
+      <div className="h-svh flex items-center justify-center text-lg font-semibold">
+        Loading...
+      </div>
+    );
+  return <div>{children}</div>;
 };
 export default MainAuthenticated;

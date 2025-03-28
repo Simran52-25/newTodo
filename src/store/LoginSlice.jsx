@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isLogged: false,
-  // accessToken: "",
   isLoading: false,
+  error: "",
 };
 
 export const checkLogin = createAsyncThunk(
@@ -19,6 +19,7 @@ export const checkLogin = createAsyncThunk(
       }
     );
     const data = await response.json();
+    console.log("DATA", data);
     return data;
   }
 );
@@ -54,19 +55,19 @@ const LoginSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(checkLogin.pending, (state, action) => {
       state.isLoading = true;
-      console.log("pending");
-    });
-    builder.addCase(checkLogin.rejected, (state, action) => {
-      state.isLoading = false;
-      console.log("error");
+      // console.log("pending");
     });
     builder.addCase(checkLogin.fulfilled, (state, action) => {
-      state.isLogged = true;
       state.isLoading = false;
-      // console.log(action.payload.data)
-      // state.accessToken = action.payload.data.accessToken;
-      localStorage.setItem("accessToken", action.payload.data.accessToken);
-      console.log("login done");
+      // console.log(action.payload)
+      if (action.payload.success) {
+        state.error = "";
+        state.isLogged = true;
+        localStorage.setItem("accessToken", action.payload.data.accessToken);
+        console.log("login done");
+      } else {
+        state.error = action.payload.message;
+      }
     });
     builder.addCase(tryAccessLogin.pending, (state, action) => {
       state.isLoading = true;

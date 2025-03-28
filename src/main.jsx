@@ -11,7 +11,6 @@ import Home from "./components/Home.jsx";
 import RouteLayout from "./RouteLayout.jsx";
 import Posts from "./components/Posts.jsx";
 import Login from "./components/Login.jsx";
-import Wrapper from "./components/Wrapper.jsx";
 import AuthenticatedRoutes from "./infrastructure/AuthenticatedRoutes.jsx";
 import UnauthenticatedRoutes from "./infrastructure/UnauthenticatedRoutes.jsx";
 import UserProfile from "./components/UserProfile.jsx";

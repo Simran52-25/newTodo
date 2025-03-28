@@ -14,13 +14,13 @@ export const TodoContextProvider = ({ children }) => {
       enddate: "",
       assignedby: "",
       description: "",
+      priority:""
     },
     onSubmit: (values, 
       {resetForm}
     ) => {
       setTodo((prev) => [...prev, values]);
       // console.log("props - ", props);
-      
       resetForm();
     },
     validationSchema: Yup.object({

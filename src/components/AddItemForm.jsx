@@ -1,9 +1,8 @@
-import { useFormik } from "formik";
 import { useContext } from "react";
 import { TodoContext } from "../TodoContext/TodoContext";
 const AddItemForm = () => {
   const { formik } = useContext(TodoContext);
- 
+
   return (
     <>
       <div className="add-item bg-[#B3D8A8] shadow-md">
@@ -17,7 +16,7 @@ const AddItemForm = () => {
           >
             <div className="grid grid-cols-2 gap-x-2 gap-y-3">
               <div className="flex flex-col gap-0.5 ">
-                <label>description</label>
+                <label>Description</label>
                 <input
                   className="p-1 border-2 rounded-md border-blue-200 "
                   type="text"
@@ -31,7 +30,7 @@ const AddItemForm = () => {
                 )}
               </div>
               <div className="flex flex-col gap-0.5 ">
-                <label>deadline</label>
+                <label>End Date</label>
                 <input
                   className="p-1 border-2 rounded-md border-blue-200"
                   type="date"
@@ -45,7 +44,7 @@ const AddItemForm = () => {
               </div>
 
               <div className="flex flex-col gap-0.5 ">
-                <label>created on</label>
+                <label>Created on</label>
                 <input
                   className=" p-1 border-2 rounded-md border-blue-200"
                   name="createdon"
@@ -70,9 +69,17 @@ const AddItemForm = () => {
                   <p className="text-red-600">{formik.errors.assignedby}</p>
                 )}
               </div>
+              <div  className="flex flex-col gap-0.5 ">
+                <label htmlFor="priority">Select Priority</label>
+                <select id="priority" className="p-1 border-2 rounded-md border-blue-200" onChange={formik.handleChange} value={formik.values.priority}>
+                  <option value="">-- Select --</option>
+                  <option name="high" value="high">High</option>
+                  <option name="medium" value="medium">Medium</option>
+                  <option name="low" value="low">Low</option>
+                </select>
+              </div>
             </div>
             <button
-              //   onClick={handleAdd}
               type="submit"
               className="text-[18px] font-medium border-2 rounded-md bg-[#59809e] p-2 w-max"
             >

@@ -1,33 +1,8 @@
 import { useFormik } from "formik";
 import { checkLogin } from "../store/LoginSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router";
 const Login = () => {
-  // const [log, setLog] = useState(false);
-  // useEffect(() => {
-  //   const accessToken=localStorage.getItem("accessToken")
-  //   if (accessToken) {
-  //     const fetchUserProfile = async () => {
-  //       const response = await fetch(
-  //         "https://api-serenify.vercel.app/api/users/current-user",
-  //         {
-  //           method: "GET",
-  //           headers: {
-  //             authorization: `Bearer ${accessToken}`,
-  //           },
-  //         }
-  //       );
-  //       const data = response.json();
-  //       return data;
-  //     };
-  //     fetchUserProfile().then((res) => {
-  //       if (res.success) {
-  //         setLog(true);
-  //       }
-  //     });
-  //   }
-  // }, []);
+  const { error } = useSelector((store) => store.login);
 
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -40,29 +15,36 @@ const Login = () => {
       dispatch(checkLogin({ email, password }));
     },
   });
-  // if (log) return <Navigate to="/" />;
   return (
-    <div className="h-svh flex justify-center items-center">
+    <div className="h-svh flex justify-center items-center p-2">
       <form
         className="bg-[#B3D8A8] shadow-md flex flex-col p-4 rounded-lg gap-4"
         onSubmit={formik.handleSubmit}
       >
         <div className="flex flex-col gap-2">
-          <label htmlFor="password">email</label>
+          <label htmlFor="password" className="text-md font-semibold">
+            Email
+          </label>
           <input
             type="text"
             id="email"
             name="email"
             onChange={formik.handleChange}
+            placeholder="Enter email"
+            className="p-1 border-2 border-transparent rounded-md"
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password" className="text-md font-semibold">
+            Password
+          </label>
           <input
             type="password"
             id="password"
             name="password"
             onChange={formik.handleChange}
+            placeholder="Enter password"
+            className="p-1 border-2 border-transparent rounded-md"
           />
         </div>
         <div className="flex justify-center items-center">
@@ -73,6 +55,7 @@ const Login = () => {
             Login
           </button>
         </div>
+        {error.length ? <div className="text-red-600">{error}</div> : ""}
       </form>
     </div>
   );

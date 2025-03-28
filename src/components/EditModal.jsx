@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { TodoContext } from "../TodoContext/TodoContext"
-import { useRef ,useEffect} from "react"
+import { useEffect} from "react"
 
 const EditModal=()=>{
     const {formikEdit,edit,todo,editIndex,setTodo,setEdit,modalRef,setEditIndex}=useContext(TodoContext)
@@ -11,7 +11,6 @@ const EditModal=()=>{
         };
       }, [edit]);
       const handleOutside = (event) => {
-        // console.log("handleoutside called",event)
         
         if (modalRef.current && !modalRef.current.contains(event.target)) {
           console.log("clicked outside the modal");
