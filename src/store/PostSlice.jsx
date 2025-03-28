@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   posts: [1, 2, 34],
   spinner: false,
+  isLoading: false,
 };
 export const getPost = createAsyncThunk("getPost", async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -33,15 +34,18 @@ const PostSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getPost.pending, (state, action) => {
+      state.isLoading = true;
       console.log("getting post pending");
     });
     builder.addCase(getPost.fulfilled, (state, action) => {
       console.log("getting post fulfileed");
       state.posts = action.payload;
+      state.isLoading = false;
     });
     builder.addCase(getPost.rejected, (state, action) => {
       console.log("getting post rejected");
       console.log(action.error);
+      state.isLoading = false;
     });
 
     //post
